@@ -174,8 +174,55 @@ class CardDeck {
 //  Your code goes below this comment.
 /*------------------------------------------*/
 
+let params = new URLSearchParams(window.location.search);
+const cards = params.getAll("cards");
+const suits = params.getAll("suits");
+const ranks = params.getAll("ranks");
+const limit = params.getAll("limit");
+
+
 // Create a new card deck.
 const deck = new CardDeck(".deck", ".hand");
 
+	if(cards.length != 0) {
+	const cardsArray = cards[0].split(" ");
+	deck.filter("id", cardsArray) 
+	
+}
+	let limitNum
+
+	if(limit.length != 0) {
+		const limitArray = limit[0].split(" "); 
+		limitNum = parseInt(limitArray[0])	
+	}
+
+	if(ranks.length != 0) {
+	const ranksArray = ranks[0].split(" ");
+	
+	for(let i = 0; i < ranksArray.length; i++) {
+		let num = parseInt(ranksArray[i])
+		ranksArray[i] = num;
+	}
+	deck.filter("rank", ranksArray)
+	}
+	
+
+	if(suits.length != 0) {
+	const suitsArray = suits[0].split(" ");	
+	deck.filter("suit", suitsArray)
+	} 
+
+	deck.limit(limitNum)
+	deck.drawFiltered()
+	deck.shuffleDeck() 
+	
+
 // Take a look at the deck object and its methods.
 console.log(deck);
+
+/* 
+get the query string-
+get the query search params-
+get which cards to draw
+pull the cards out
+*/
